@@ -1,0 +1,19 @@
+<settings>
+	<category label="General">
+		<setting visible="false" id="pages"    type="labelenum" label="Number of Pages" values="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|25|30|35|40|45|50|55|60|70|80|90|99|100"             default="1"/>
+		<setting id="enableMeta" 		type="bool" label="Enable Metadata" default="false" visible="false"/>
+		<setting id="debug-enable" 	type="bool" label="Enable Debugging to File" default="false" visible="true"/>
+		<setting id="debug-show" 		type="bool" label="Enable Debugging to Notice(s)" default="false" visible="true"/>
+		<setting id="rtmp-enable" 	type="bool" label="Enable RTMP Links" default="false" visible="false"/>
+		<setting visible="false" id="label-empty-favorites" 		type="bool" label="Show Labels in List: Empty Favorites" default="false"/>
+	</category>
+	<category label="Auto-View">
+		<setting visible="false" id="auto-view" type="bool"   label="Enable Automatic View" default="false"/>
+		<setting visible="false" id="default-view"   type="number" label="Default"               default="50"   enable="!eq(-1,false)"/>
+		<setting visible="false" id="movies-view"    type="number" label="Movies"                default="515"  enable="!eq(-2,false)"/>
+		<setting visible="false" id="tvshows-view"   type="number" label="TV Shows"              default="515"  enable="!eq(-3,false)"/>
+		<setting visible="false" id="season-view"    type="number" label="Seasons"               default="50"   enable="!eq(-4,false)"/>
+		<setting visible="false" id="episode-view"   type="number" label="Episodes"              default="515"  enable="!eq(-5,false)"/>
+		<setting visible="false" id="links-view"   	 type="number" label="Links"              	 default="50"   enable="!eq(-6,false)"/>
+	</category>
+</settings>
