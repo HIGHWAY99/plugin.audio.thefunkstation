@@ -29,6 +29,8 @@ def ps(x):
 		,'_button2_url':				"http://listento.thefunkstation.com/funkradio/templates/funkstation2/images/Bottom_texture.jpg"
 		,'_fanart_url': 				"http://listento.thefunkstation.com/funkradio/templates/funkstation2/images/header.jpg"
 		,'_settings_url': 			"http://listento.thefunkstation.com/funkradio/templates/funkstation2/images/Bottom_texture.jpg"
+		,'_playlist_img':				"http://listento.thefunkstation.com/funkradio/templates/funkstation2/images/Bottom_texture.jpg"
+		,'_tfs_mini_img':				"http://d1bm3dmew779uf.cloudfront.net/medium/03ca3166e16b09f95835a077365f2552.jpg"
 		,'_play_url': 					"%s"
 		,'_category_url':				'%s'
 		,'_database_name': 			"thefunkstation"

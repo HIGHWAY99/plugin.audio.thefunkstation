@@ -2,7 +2,7 @@
 ###	#	
 ### # Project: 			#		TheFunctStation.com - by The Highway 2013.
 ### # Author: 			#		The Highway
-### # Version:			#		v0.3.1
+### # Version:			#		v0.3.3
 ### # Description: 	#		http://www.thefunkstation.com/		|		http://listento.thefunkstation.com:8000/ 
 ###	#	
 ### ############################################################################################################
@@ -117,11 +117,52 @@ _param['subfav']=addpr('subfav',''); _param['episodetitle']=addpr('episodetitle'
 ### ############################################################################################################
 ##### Player Functions #####
 def PlayURL(url):
+	#play=xbmc.Player(xbmc.PLAYER_CORE_AUTO) ### xbmc.PLAYER_CORE_AUTO | xbmc.PLAYER_CORE_DVDPLAYER | xbmc.PLAYER_CORE_MPLAYER | xbmc.PLAYER_CORE_PAPLAYER
+	### AUTO|DVDPLAYER|MPLAYER|PAPLAYER
+	PlayerMethod=addst("core-player")
+	if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER
+	elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER
+	elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER
+	else: PlayerMeth=xbmc.PLAYER_CORE_AUTO
+	play=xbmc.Player(PlayerMeth) ### xbmc.PLAYER_CORE_AUTO | xbmc.PLAYER_CORE_DVDPLAYER | xbmc.PLAYER_CORE_MPLAYER | xbmc.PLAYER_CORE_PAPLAYER
+	try: _addon.resolve_url(url)
+	except: t=''
+	try: play.play(url)
+	except: t=''
+
+def PlayURLAuto(url):
 	play=xbmc.Player(xbmc.PLAYER_CORE_AUTO) ### xbmc.PLAYER_CORE_AUTO | xbmc.PLAYER_CORE_DVDPLAYER | xbmc.PLAYER_CORE_MPLAYER | xbmc.PLAYER_CORE_PAPLAYER
 	try: _addon.resolve_url(url)
 	except: t=''
 	try: play.play(url)
 	except: t=''
+
+def PlayURLPAPlayer(url):
+	play=xbmc.Player(xbmc.PLAYER_CORE_PAPLAYER) ### xbmc.PLAYER_CORE_AUTO | xbmc.PLAYER_CORE_DVDPLAYER | xbmc.PLAYER_CORE_MPLAYER | xbmc.PLAYER_CORE_PAPLAYER
+	try: _addon.resolve_url(url)
+	except: t=''
+	try: play.play(url)
+	except: t=''
+
+def PlayPlayList(url):
+	thumbnail=ps('_playlist_img') #_artIcon
+	name='The Funk Station'
+	liz=xbmcgui.ListItem(name,iconImage=thumbnail,thumbnailImage=thumbnail)
+	liz.setInfo('music',{'Title':name}) # ,"Duration" : duration
+	liz.setProperty('mimetype', 'audio/mpeg')
+	liz.setProperty('IsPlayable', 'true')	#play=xbmc.Player(xbmc.PLAYER_CORE_AUTO) ### xbmc.PLAYER_CORE_AUTO | xbmc.PLAYER_CORE_DVDPLAYER | xbmc.PLAYER_CORE_MPLAYER | xbmc.PLAYER_CORE_PAPLAYER
+	pl = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+	pl.clear()    
+	pl.add(url, liz)
+	#xbmc.Player(xbmc.PLAYER_CORE_MPLAYER).play(pl)
+	#play=xbmc.Player(xbmc.PLAYER_CORE_AUTO) ### xbmc.PLAYER_CORE_AUTO | xbmc.PLAYER_CORE_DVDPLAYER | xbmc.PLAYER_CORE_MPLAYER | xbmc.PLAYER_CORE_PAPLAYER
+	play=xbmc.Player(xbmc.PLAYER_CORE_MPLAYER)
+	try: _addon.resolve_url(url)
+	except: t=''
+	try: play.play(pl) # url
+	except: t=''
+	#try: _addon.resolve_url(pl)
+	#except: t=''
 
 def DownloadStatus(numblocks, blocksize, filesize, dlg, download_method, start_time, section, url, img, LabelName, ext, LabelFile):
 	if (CancelDownload==True):
@@ -290,6 +331,12 @@ def DownloadRequest(section, url,img,LabelName):
 		#
 	else:	deb('Download Error','Unable to create destination path.'); myNote('Download Error','Unable to create destination path.'); return
 
+#def StartLastFM(): path='plugin://'+ps('_plugin_id')+'/slideshow.py'; xbmc.executebuiltin('XBMC.RunScript(%s)' % path)
+#    ##path = os.path.join(xbmc.translatePath('special://home/addons'), 'script.image.lastfm.slideshow', 'default.py')
+#    #path = os.path.join(_addonPath, 'slideshow.py')
+#    #xbmc.executebuiltin('XBMC.RunScript(%s)' % path)
+#    path='plugin://'+ps('_plugin_id')+'/slideshow.py'; xbmc.executebuiltin('XBMC.RunScript(%s)' % path)
+
 ##### /\ ##### Player Functions #####
 ### ############################################################################################################
 ### ############################################################################################################
@@ -360,9 +407,24 @@ def Menu_MainMenu(): #The Main Menu
 	#_addon.add_directory({'mode': 'PlayURL','url':test_urlA+':3690'+test_urlB}, 				 {'title':  cFL_('Testing URL:3690',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
 	#_addon.add_directory({'mode': 'PlayURL','url':test_urlA+':443'+test_urlB}, 				 {'title':  cFL_('Testing URL:443',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
 	#_addon.add_directory({'mode': 'PlayURL','url':test_urlA+':80'+test_urlB}, 				 {'title':  cFL_('Testing URL:80',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	_addon.add_directory({'mode': 'SongHistory','url':'http://listento.thefunkstation.com:8000/played.html'}, 				 {'title':  cFL_('Song History',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=ps('_button2_url'))
-	_addon.add_directory({'mode': 'Status','url':'http://listento.thefunkstation.com:8000/index.html'}, 				 {'title':  cFL_('Status',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=ps('_button2_url'))
+	_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen (on Gotham)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	_addon.add_directory({'mode': 'PlayURLPAPlayer','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen (on Frodo)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com:8000'}, 				 {'title':  cFL_('Listen (Method 2)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com'}, 				 {'title':  cFL_('Listen (Method 3)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (iTunes)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.asx'}, 				 {'title':  cFL_('Listen (Windows)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (WinAmp)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.rm'}, 				 {'title':  cFL_('Listen (Real Player)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#
+	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen *',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (iTunes)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.asx'}, 				 {'title':  cFL_('Listen (Windows)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (WinAmp)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.rm'}, 				 {'title':  cFL_('Listen (Real Player)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	#
+	_addon.add_directory({'mode': 'SongHistory','url':'http://listento.thefunkstation.com:8000/played.html'}, 				 {'title':  cFL_('Song History',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=ps('_tfs_mini_img'))
+	_addon.add_directory({'mode': 'Status','url':'http://listento.thefunkstation.com:8000/index.html'}, 				 {'title':  cFL_('Status',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=ps('_tfs_mini_img'))
+	_addon.add_directory({'mode': 'SlideShowStart'},{'title':  cFL_('Start SlideShow (LastFM Packaged)',ps('cFL_color5'))}			,is_folder=True		,fanart=_artFanart, img=ps('_button2_url'))
 	#
 	_addon.add_directory({'mode': 'Settings'}, 				 {'title':  cFL_('Plugin Settings',ps('cFL_color2'))}			,is_folder=True		,fanart=_artFanart, img=ps('_settings_url'))
 	##_addon.add_directory({'mode': 'DownloadStop'}, 		 {'title':  cFL('S',ps('cFL_color'))+'top Current Download'},is_folder=False		,img=_artDead							,fanart=_artFanart)
@@ -568,6 +630,9 @@ def check_mode(mode=''):
 	#elif (mode=='PlayVideo'): 						PlayVideo(_param['url'], _param['infoLabels'], _param['listitem'])
 	#elif (mode=='PlaySong'): 							PlaySong(_param['url'], _param['title'], _param['img'])
 	elif (mode=='PlayURL'): 							PlayURL(_param['url'])
+	elif (mode=='PlayURLAuto'): 					PlayURLAuto(_param['url'])
+	elif (mode=='PlayURLPAPlayer'): 			PlayURLPAPlayer(_param['url'])
+	elif (mode=='PlayPlayList'): 					PlayPlayList(_param['url'])
 	elif (mode=='Settings'): 							_addon.addon.openSettings() #_plugin.openSettings()
 	#elif (mode=='ResolverSettings'): 			urlresolver.display_settings()
 	#elif (mode=='LoadCategories'): 				Menu_LoadCategories(_param['section'])
@@ -587,6 +652,7 @@ def check_mode(mode=''):
 	#elif (mode=='ChangeFanartUpdate'):		ChangeFanartUpdate(_param['section'],_param['subfav'],_param['url'],_param['title'])
 	elif (mode=='SongHistory'):						SongHistory(_param['url'])
 	elif (mode=='Status'):								Status(_param['url'])
+	elif (mode=='SlideShowStart'):				path = os.path.join(_addonPath, 'slideshow.py'); xbmc.executebuiltin('XBMC.RunScript(%s)' % path)
 	else: deadNote(header='Mode:  "'+mode+'"',msg='[ mode ] not found.'); initDatabase(); Menu_MainMenu()
 
 # {'showyear': '', 'infoLabels': "
