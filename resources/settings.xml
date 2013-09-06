@@ -9,8 +9,8 @@
 		<setting visible="false" id="label-empty-favorites" 		type="bool" label="Show Labels in List: Empty Favorites" default="false"/>
 	</category>
 	<category label="Auto-View">
-		<setting visible="false" id="auto-view" type="bool"   label="Enable Automatic View" default="false"/>
-		<setting visible="false" id="default-view"   type="number" label="Default"               default="50"   enable="!eq(-1,false)"/>
+		<setting visible="true" id="auto-view" type="bool"   label="Enable Automatic View" default="false"/>
+		<setting visible="true" id="default-view"   type="number" label="Default"               default="50"   enable="!eq(-1,false)"/>
 		<setting visible="false" id="movies-view"    type="number" label="Movies"                default="515"  enable="!eq(-2,false)"/>
 		<setting visible="false" id="tvshows-view"   type="number" label="TV Shows"              default="515"  enable="!eq(-3,false)"/>
 		<setting visible="false" id="season-view"    type="number" label="Seasons"               default="50"   enable="!eq(-4,false)"/>

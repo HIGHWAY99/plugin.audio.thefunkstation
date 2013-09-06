@@ -2,7 +2,7 @@
 ###	#	
 ### # Project: 			#		TheFunctStation.com - by The Highway 2013.
 ### # Author: 			#		The Highway
-### # Version:			#		v0.3.3
+### # Version:			#		v0.3.4
 ### # Description: 	#		http://www.thefunkstation.com/		|		http://listento.thefunkstation.com:8000/ 
 ###	#	
 ### ############################################################################################################
@@ -55,9 +55,9 @@ _addon=Addon(ps('_addon_id'), sys.argv); addon=_addon; _plugin=xbmcaddon.Addon(i
 _addonPath	=xbmc.translatePath(_plugin.getAddonInfo('path'))
 _artPath		=xbmc.translatePath(os.path.join(_addonPath,ps('_addon_path_art')))
 _datapath 	=xbmc.translatePath(_addon.get_profile()); _artIcon		=_addon.get_icon(); 
-try:		_artFanart	=ps('_fanart_url')
-except:	_artFanart	=_addon.get_fanart()
-#_artFanart	=_addon.get_fanart()
+#try:		_artFanart	=ps('_fanart_url')
+#except:	_artFanart	=_addon.get_fanart()
+_artFanart	=_addon.get_fanart()
 ##### /\ ##### Paths #####
 ##### Important Functions with some dependencies #####
 def art(f,fe=ps('default_art_ext')): return xbmc.translatePath(os.path.join(_artPath,f+fe)) ### for Making path+filename+ext data for Art Images. ###
@@ -387,46 +387,16 @@ def mdGetSplitFindGroup(html,ifTag='', parseTag='',startTag='',endTag=''):
 ### ############################################################################################################
 ### ############################################################################################################
 ##### Menus #####
-
-
-
-def Menu_LoadCategories(section=_default_section_): #Categories
-	WhereAmI('@ the Category Menu')
-	### ###################################################################################################################################################################################################################################
-	### ###################################################################################################################################################################################################################################
-	### 
-	set_view('list',addst('default-view')); eod()
-	### 
-	### 
-
 def Menu_MainMenu(): #The Main Menu
 	WhereAmI('@ the Main Menu')
-	#_addon.add_directory({'mode': 'GetTitles', 'section': 'music', 'url': 'http://static.radioplayer.co.uk/v1/json/UkrpWebSiteStationList.jgz'}, {'title': cFL_('Radio Stations',ps('cFL_color'))}, fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':test_url2}, 				 {'title':  cFL_('Testing URL2',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':test_url}, 				 {'title':  cFL_('Testing URL',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':test_urlA+':3690'+test_urlB}, 				 {'title':  cFL_('Testing URL:3690',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':test_urlA+':443'+test_urlB}, 				 {'title':  cFL_('Testing URL:443',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':test_urlA+':80'+test_urlB}, 				 {'title':  cFL_('Testing URL:80',ps('cFL_color3'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen (on Gotham)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	_addon.add_directory({'mode': 'PlayURLPAPlayer','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen (on Frodo)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com:8000'}, 				 {'title':  cFL_('Listen (Method 2)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com'}, 				 {'title':  cFL_('Listen (Method 3)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (iTunes)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.asx'}, 				 {'title':  cFL_('Listen (Windows)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (WinAmp)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.rm'}, 				 {'title':  cFL_('Listen (Real Player)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	_addon.add_directory({'mode': 'PlayURL','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen (on Gotham)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart,img=art('Listen')) #img=ps('_button_url'))
+	_addon.add_directory({'mode': 'PlayURLPAPlayer','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen (on Frodo)',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=art('Listen2')) #ps('_button_url'))
 	#
-	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com:8000/'}, 				 {'title':  cFL_('Listen *',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (iTunes)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.asx'}, 				 {'title':  cFL_('Listen (Windows)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.pls'}, 				 {'title':  cFL_('Listen (WinAmp)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
-	#_addon.add_directory({'mode': 'PlayPlayList','url':'http://listento.thefunkstation.com/funkradio/players/funkradio.rm'}, 				 {'title':  cFL_('Listen (Real Player)*',ps('cFL_color'))}			,is_folder=False		,fanart=_artFanart, img=ps('_button_url'))
+	_addon.add_directory({'mode': 'SongHistory','url':'http://listento.thefunkstation.com:8000/played.html'}, 				 {'title':  cFL_('Song History',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=art('SongHistory')) #ps('_tfs_mini_img'))
+	_addon.add_directory({'mode': 'Status','url':'http://listento.thefunkstation.com:8000/index.html'}, 				 {'title':  cFL_('Status',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=art('Status')) #ps('_tfs_mini_img'))
+	_addon.add_directory({'mode': 'SlideShowStart'},{'title':  cFL_('Start SlideShow (LastFM Packaged)',ps('cFL_color5'))}			,is_folder=True		,fanart=_artFanart, img=art('SlideShow')) #ps('_button2_url'))
 	#
-	_addon.add_directory({'mode': 'SongHistory','url':'http://listento.thefunkstation.com:8000/played.html'}, 				 {'title':  cFL_('Song History',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=ps('_tfs_mini_img'))
-	_addon.add_directory({'mode': 'Status','url':'http://listento.thefunkstation.com:8000/index.html'}, 				 {'title':  cFL_('Status',ps('cFL_color3'))}			,is_folder=True		,fanart=_artFanart, img=ps('_tfs_mini_img'))
-	_addon.add_directory({'mode': 'SlideShowStart'},{'title':  cFL_('Start SlideShow (LastFM Packaged)',ps('cFL_color5'))}			,is_folder=True		,fanart=_artFanart, img=ps('_button2_url'))
-	#
-	_addon.add_directory({'mode': 'Settings'}, 				 {'title':  cFL_('Plugin Settings',ps('cFL_color2'))}			,is_folder=True		,fanart=_artFanart, img=ps('_settings_url'))
+	_addon.add_directory({'mode': 'Settings'}, 				 {'title':  cFL_('Plugin Settings',ps('cFL_color2'))}			,is_folder=True		,fanart=_artFanart, img=art('Settings')) #ps('_settings_url'))
 	##_addon.add_directory({'mode': 'DownloadStop'}, 		 {'title':  cFL('S',ps('cFL_color'))+'top Current Download'},is_folder=False		,img=_artDead							,fanart=_artFanart)
 	#_addon.add_directory({'mode': 'TextBoxFile',  'title': "[COLOR cornflowerblue]Local Change Log:[/COLOR]  %s"  % (__plugin__), 'url': ps('changelog.local')}, 	{'title': cFL('L',ps('cFL_color'))+'ocal Change Log'},					img=art('thechangelog','.jpg'), is_folder=False ,fanart=_artFanart)
 	#_addon.add_directory({'mode': 'TextBoxUrl',   'title': "[COLOR cornflowerblue]Latest Change Log:[/COLOR]  %s" % (__plugin__), 'url': ps('changelog.url')}, 		{'title': cFL('L',ps('cFL_color'))+'atest Online Change Log'},	img=art('thechangelog','.jpg'), is_folder=False ,fanart=_artFanart)
@@ -489,140 +459,6 @@ def Status(url):
 ### ############################################################################################################
 ### ############################################################################################################
 ### ############################################################################################################
-##### Favorites #####
-def fav__empty(section,subfav=''):
-  WhereAmI('@ Favorites - Empty - %s%s' % (section,subfav)); favs=[]; cache.set('favs_'+section+subfav+'__', str(favs)); sunNote(bFL('Favorites'),bFL('Your Favorites Have Been Wiped Clean. Bye Bye.'))
-def fav__remove(section,name,year,subfav=''):
-	WhereAmI('@ Favorites - Remove - %s%s' % (section,subfav)); deb('fav__remove() '+section,name+'  ('+year+')'); saved_favs=cache.get('favs_'+section+subfav+'__'); tf=False
-	if saved_favs:
-		favs=eval(saved_favs)
-		if favs:
-			for (_name,_year,_img,_fanart,_country,_url,_plot,_genre,_dbid) in favs: 
-				if (name==_name) and (year==_year):
-					favs.remove((_name,_year,_img,_fanart,_country,_url,_plot,_genre,_dbid)); cache.set('favs_'+section+subfav+'__', str(favs)); tf=True; sunNote(bFL(name.upper()+'  ('+year+')'),bFL('Removed from Favorites')); deb(name+'  ('+year+')','Removed from Favorites. (Hopefully)'); xbmc.executebuiltin("XBMC.Container.Refresh"); return
-			if (tf==False): sunNote(bFL(name.upper()),bFL('not found in your Favorites'))
-		else: sunNote(bFL(name.upper()+'  ('+year+')'),bFL('not found in your Favorites'))
-def fav__add(section,name,year='',img=_art150,fanart=_artFanart,subfav=''):
-	WhereAmI('@ Favorites - Add - %s%s' % (section,subfav))
-	if (debugging==True): print 'fav__add()',section,name+'  ('+year+')',img,fanart
-	saved_favs=cache.get('favs_'+section+subfav+'__'); favs=[]; fav_found=False
-	if saved_favs:
-		if (debugging==True): print saved_favs
-		favs=eval(saved_favs)
-		if favs:
-			if (debugging==True): print favs
-			for (_name,_year,_img,_fanart,_country,_url,_plot,_genre,_dbid) in favs:
-				if (name==_name) and (year==_year): 
-					fav_found=True; sunNote(bFL(section+':  '+name.upper()+'  ('+year+')'),bFL('Already in your Favorites')); return
-	if   (section==ps('section.tv')):    favs.append((name,year,img,fanart,_param['country'],_param['url'],_param['plot'],_param['genre'],_param['dbid']))
-	elif (section==ps('section.movie')): favs.append((name,year,img,fanart,_param['country'],_param['url'],_param['plot'],_param['genre'],''))
-	cache.set('favs_'+section+subfav+'__', str(favs)); sunNote(bFL(name+'  ('+year+')'),bFL('Added to Favorites'))
-def fav__list(section,subfav=''):
-	WhereAmI('@ Favorites - List - %s%s' % (section,subfav)); saved_favs=cache.get('favs_'+section+subfav+'__'); favs=[]
-	if saved_favs:
-		if (debugging==True): print saved_favs
-		favs=sorted(eval(saved_favs), key=lambda fav: (fav[1],fav[0]),reverse=True)
-		ItemCount=len(favs) # , total_items=ItemCount
-		if favs:
-			#if   (section==ps('section.tv')): 		xbmcplugin.setContent( int( sys.argv[1] ), 'tvshows' )
-			#elif (section==ps('section.movie')): 	xbmcplugin.setContent( int( sys.argv[1] ), 'movies' )
-			for (name,year,img,fanart,country,url,plot,genre,dbid) in favs:
-				if (debugging==True): print '----------------------------'
-				if (debugging==True): print name,year,img,fanart,country,url,plot,genre,dbid #,pars,labs
-				contextMenuItems=[]; labs2={}; labs2['fanart']=''
-				if   (section==ps('section.tv')):
-					return
-				elif (section==ps('section.movie')):
-					#labs2['title']=cFL(name+'  ('+cFL(year,ps('cFL_color2'))+')',ps('cFL_color')); 
-					labs2['title']=cFL(name[0:1],ps('cFL_color2'))+cFL(name[1:],ps('cFL_color')); 
-					labs2['image']=img; labs2['fanart']=fanart; labs2['ShowTitle']=name; labs2['year']=year; pars2={'mode': 'PlayVideo', 'section': section, 'url': url, 'img': img, 'image': img, 'fanart': fanart, 'title': name, 'year': year }; labs2['plot']=plot
-					##### Right Click Menu for: TV #####
-					contextMenuItems.append((ps('cMI.showinfo.name'),ps('cMI.showinfo.url')))
-					#contextMenuItems.append((ps('cMI.favorites.tv.remove.name'), 	   ps('cMI.favorites.movie.remove.url') % (sys.argv[0],ps('cMI.favorites.tv.remove.mode'),section,urllib.quote_plus(name),year,urllib.quote_plus(img),urllib.quote_plus(fanart),urllib.quote_plus(country),urllib.quote_plus(plot),urllib.quote_plus(genre),urllib.quote_plus(url), '' )))
-					contextMenuItems.append((ps('cMI.favorites.tv.remove.name'),ps('cMI.favorites.movie.remove.url') % (sys.argv[0],ps('cMI.favorites.tv.remove.mode'),section,urllib.quote_plus(name),year,urllib.quote_plus(img),urllib.quote_plus(fanart),urllib.quote_plus(country),urllib.quote_plus(plot),urllib.quote_plus(genre),urllib.quote_plus(url),subfav )))
-					if (fanart is not ''): contextMenuItems.append(('Download Wallpaper', 'XBMC.RunPlugin(%s)' % _addon.build_plugin_url( { 'mode': 'Download' , 'section': ps('section.wallpaper') , 'studio': name+' ('+year+')' , 'img': img , 'url': fanart } ) ))
-					##### Right Click Menu for: TV ##### /\ #####
-					#pars={'mode': 'PlayVideo', 'section': section, 'url': ps('_play_url') % item_id, 'img': ps('_image_url') % item_id, 'title': item_name }
-					#try: _addon.add_directory(pars2, labs2, img=ps('_image_url') % item_id, fanart=ps('_image_url') % item_id, contextmenu_items=contextMenuItems, total_items=ItemCount)
-					try: _addon.add_directory(pars2, labs2, img=img, fanart=fanart, contextmenu_items=contextMenuItems)
-					except: deb('Error Listing Item',name+'  ('+year+')')
-			if   (section==ps('section.tv')): 		set_view('tvshows',ps('setview.tv')			,True)
-			elif (section==ps('section.movie')): 	set_view('movies' ,ps('setview.movies')	,True)
-		else: sunNote('Favorites:  '+section,'No favorites found *'); set_view('list',addst('default-view')); eod(); return
-	else: sunNote('Favorites:  '+section,'No favorites found **'); set_view('list',addst('default-view')); eod(); return
-	#set_view('list',addst('default-view')); 
-	eod()
-
-def ChangeFanartUpdate(section,subfav,fanart,dbid):
-	WhereAmI('@ Favorites - Update Fanart - %s%s' % (section,subfav))
-	saved_favs=cache.get('favs_'+section+subfav+'__'); favs=[]; favs_new=[]; fav_found=False; name=''; year=''
-	if saved_favs:
-		if (debugging==True): print saved_favs
-		favs=eval(saved_favs)
-		if favs:
-			for (_name,_year,_img,_fanart,_country,_url,_plot,_genre,_dbid) in favs:
-				if (dbid==_dbid):	favs_new.append((_name,_year,_img, fanart,_country,_url,_plot,_genre,_dbid)); name=_name; year=_year
-				else:							favs_new.append((_name,_year,_img,_fanart,_country,_url,_plot,_genre,_dbid))
-			cache.set('favs_'+section+subfav+'__', str(favs_new)); sunNote(bFL(name+'  ('+year+')'),bFL('Updated Fanart'))
-	eod(); #xbmc.executebuiltin('XBMC.Container.Update(%s)' % _addon.build_plugin_url({'mode': 'FavoritesList' , 'section': section , 'subfav': subfav}))
-
-def ChangeFanartList(section,subfav,dbid,current,img,title):
-	WhereAmI('@ Favorites - List - %s%s - %s' % (section,subfav,dbid)); 
-	if   (section==ps('section.tv')):
-		url=ps('meta.tv.fanart.all.url') % dbid
-		html=mGetItemPage(url)
-		deb('length of HTML',str(len(html)))
-		try:		iitems=re.compile(ps('meta.tv.fanart.all.match')).findall(html)
-		except:	iitems=None
-		if (iitems==None) or (iitems==''): deb('Error','No Items Found.'); return
-		ItemCount=len(iitems) # , total_items=ItemCount
-		deb('Items Found',str(ItemCount))
-		parsC={'section':section,'subfav':subfav,'mode':'ChangeFanartUpdate','url':current, 'title': dbid}
-		#_addon.add_directory(parsC,{ 'title': title, 'studio': title },img=img,fanart=current)
-		_addon.add_directory(parsC,{ 'title': title, 'studio': title },img=current,fanart=current)
-		#_addon.add_item(parsC,{ 'title': title, 'studio': title },img=img,fanart=current)
-		#_addon.add_directory({'mode':'test'}, {'title':title}, img=img)
-		#_addon.add_directory({'mode':'test'}, {'title':'title'})
-		#_addon.end_of_directory(); return
-		iitems=sorted(iitems, key=lambda item: item[0], reverse=False)
-		#print iitems
-		for fanart_url,fanart_name in iitems:
-			fanart_url=ps('meta.tv.fanart.all.prefix')+fanart_url
-			pars={ 'section': section, 'subfav': subfav, 'mode': 'ChangeFanartUpdate', 'url': fanart_url, 'title': dbid }
-			deb('fanart url ',fanart_url); deb('fanart name',fanart_name); #print pars
-			#_addon.add_directory(pars, {'title':'Fanart No. '+fanart_name}, img=img, fanart=fanart_url, total_items=ItemCount)
-			_addon.add_directory(pars, {'title':'Fanart No. '+fanart_name}, img=fanart_url, fanart=fanart_url, total_items=ItemCount)
-			#_addon.add_directory(pars, {'title':'Fanart No. '+fanart_name}, img=img, fanart=fanart_url)
-			#_addon.add_directory(pars, {'title':'Fanart No. '+str(fanart_name)})
-		#eod()
-		#sunNote('Testing - '+section,'lala a la la la!')
-		set_view('list',addst('default-view')); 
-		eod()
-		#xbmc.executebuiltin("XBMC.Container.Refresh")
-	elif (section==ps('section.movie')):
-		url=''
-		return
-	else: return
-	set_view('list',addst('default-view')); eod()
-
-
-##### /\ ##### Favorites #####
-### ############################################################################################################
-### ############################################################################################################
-### ############################################################################################################
-##### Search #####
-#def doSearchNormal (section,title=''):
-#	if (section=='tv'): SearchPrefix=ps('domain.search.tv')
-#	else: SearchPrefix=ps('domain.search.movie')
-#	if (title==''):
-#		title=showkeyboard(txtMessage=title,txtHeader="Title:  ("+section+")")
-#		if (title=='') or (title=='none') or (title==None) or (title==False): return
-#	_param['url']=SearchPrefix+title; deb('Searching for',_param['url']); listItems(section, _param['url'], _param['pageno'], addst('pages'), _param['genre'], _param['year'], _param['title'])
-
-##### /\ ##### Search #####
-### ############################################################################################################
-### ############################################################################################################
-### ############################################################################################################
 ##### Modes #####
 def check_mode(mode=''):
 	deb('Mode',mode)
@@ -640,10 +476,6 @@ def check_mode(mode=''):
 	elif (mode=='TextBoxFile'): 					TextBox2().load_file(_param['url'],_param['title']); eod()
 	elif (mode=='TextBoxUrl'):  					TextBox2().load_url( _param['url'],_param['title']); eod()
 	elif (mode=='Search'):  							doSearchNormal(_param['section'],_param['title'])
-	elif (mode=='FavoritesList'):  		  	fav__list(_param['section'],_param['subfav'])
-	elif (mode=='FavoritesEmpty'):  	 		fav__empty(_param['section'],_param['subfav'])
-	elif (mode=='FavoritesRemove'):  			fav__remove(_param['section'],_param['title'],_param['year'],_param['subfav'])
-	elif (mode=='FavoritesAdd'):  		  	fav__add(_param['section'],_param['title'],_param['year'],_param['img'],_param['fanart'],_param['subfav'])
 	elif (mode=='sunNote'):  		   				sunNote( header=_param['title'],msg=_param['plot'])
 	elif (mode=='deadNote'):  		   			deadNote(header=_param['title'],msg=_param['plot'])
 	#elif (mode=='Download'): 							print _param; DownloadRequest(_param['section'], _param['url'],_param['img'],_param['studio']); eod()
